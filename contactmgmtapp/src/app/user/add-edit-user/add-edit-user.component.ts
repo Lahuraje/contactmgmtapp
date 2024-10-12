@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddEditUserComponent implements OnInit {
   userForm!: FormGroup;
   showModal: boolean = false; // Controls the visibility of the modal
+  isEditMode: boolean = false;
+
+  @Input() userData: any = null; // Data passed for editing
+  @Output() saveUser = new EventEmitter<any>(); // Emit event when user is saved
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -18,9 +22,16 @@ export class AddEditUserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
     });
   }
-  openModal() {
-    this.userForm.reset();
+  
+  openModal(user: any = null) {
     this.showModal = true;
+    if (user) {
+      this.isEditMode = true;
+      this.userForm.patchValue(user); // Populate form for editing
+    } else {
+      this.isEditMode = false;
+      this.userForm.reset(); // Reset form for adding a new user
+    }
   }
 
   
@@ -32,11 +43,9 @@ export class AddEditUserComponent implements OnInit {
   
   submitForm() {
     if (this.userForm.valid) {
-      console.log('Form Data:', this.userForm.value);
-      this.closeModal(); 
-      this.userForm.reset(); 
-    } else {
-      console.log('Form is invalid!');
+      const formData = { ...this.userData, ...this.userForm.value };
+      this.saveUser.emit(formData); // Emit event with form data
+      this.closeModal();
     }
   }
 

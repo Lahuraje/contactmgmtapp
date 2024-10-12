@@ -7,12 +7,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = '';
+  private apiUrl = 'https://localhost:7250/api/User';
   constructor(private http: HttpClient) {}
 
   //  Get All Users
-  getUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(this.apiUrl);
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
   //  Get a Single User by ID

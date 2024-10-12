@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { UserListingComponent } from './user/user-listing/user-listing.component';
 import { AddEditUserComponent } from './user/add-edit-user/add-edit-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
 
 
   ],

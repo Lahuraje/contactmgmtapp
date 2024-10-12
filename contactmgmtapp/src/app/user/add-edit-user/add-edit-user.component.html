@@ -5,7 +5,7 @@
     <button class="btn btn-success btn-sm" style="width: 100px;" (click)="openModal()">New</button>
     <hr>
   </div>
-<app-user-listing></app-user-listing>
+
 
 
 <!-- Button to Open Modal -->
@@ -16,7 +16,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            {{ isEditMode ? 'Edit User' : 'Add New User' }}
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
           </div>
       <div class="modal-body">
@@ -66,7 +66,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
             <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
-              Submit
+                {{ isEditMode ? 'Update' : 'Save' }}
             </button>
           </div>
         </form>
