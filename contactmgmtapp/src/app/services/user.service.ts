@@ -7,31 +7,31 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://localhost:7250/api/User';
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'https://localhost:7250/api/User/';
+  constructor(private http: HttpClient) { }
 
   //  Get All Users
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl + 'GetUsers');
   }
 
   //  Get a Single User by ID
-  getUserById(id: number): Observable<IUser> {
-    return this.http.get<IUser>(`${this.apiUrl}/${id}`);
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
   //  Create a New User
-  createUser(user: IUser): Observable<IUser> {
-    return this.http.post<IUser>(this.apiUrl, user);
+  createUser(user: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'CreateUser', user);
   }
 
   // Update an Existing User
   updateUser(id: number, user: IUser): Observable<IUser> {
-    return this.http.put<IUser>(`${this.apiUrl}/${id}`, user);
+    return this.http.put<IUser>(`${this.apiUrl}UpdateUser?id=${id}`, user);
   }
 
   //  Delete a User by ID
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}DeleteUser?id=${id}`);
   }
 }
