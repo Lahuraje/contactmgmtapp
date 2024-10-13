@@ -13,7 +13,7 @@
 
 <!-- Modal -->
 <div *ngIf="showModal" class="modal show d-block" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" role="document" style="margin-top: 10% !important;">
     <div class="modal-content">
         <div class="modal-header">
             {{ isEditMode ? 'Edit User' : 'Add New User' }}
@@ -22,6 +22,12 @@
       <div class="modal-body">
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
           <div class="form-group">
+            <input
+              type="hidden"
+              id="id"
+              class="form-control"
+              formControlName="id"
+            />
             <label for="firstName">First Name</label>
             <input
               type="text"

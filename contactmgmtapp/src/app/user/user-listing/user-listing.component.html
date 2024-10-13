@@ -1,4 +1,4 @@
-<app-add-edit-user [userData]="selectedUser" (saveUser)="saveUser($event)"></app-add-edit-user>
+<app-add-edit-user [userData]="selectedUser" (saveUser)="newUserAddedAlert($event)"></app-add-edit-user>
 
 <div class="container-fluid">
 
@@ -31,7 +31,7 @@
                     <div class="col-1"><button type="button" class="btn btn-primary btn-sm"  (click)="openModal(user)">Edit</button></div>
                 </td>
                 <td>
-                    <div class="col-1"><button type="button" class="btn btn-danger btn-sm">Delete</button></div>
+                    <div class="col-1"><button type="button" class="btn btn-danger btn-sm" (click)="onDeleteUser(user)">Delete</button></div>
                 </td>
             </tr>
 
@@ -39,3 +39,72 @@
     </table>
 
 </div>
+
+
+
+<!--Edit and delete user section - start-->
+
+<!-- <div *ngIf="showModal" class="modal show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              {{ isEditMode ? 'Edit User' : 'Add New User' }}
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+        <div class="modal-body">
+          <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                formControlName="firstName"
+              />
+              <div *ngIf="firstName?.invalid && firstName?.touched" class="text-danger">
+                <small *ngIf="firstName?.errors?.['required']">First Name is required.</small>
+                <small *ngIf="firstName?.errors?.['minlength']">Must be at least 2 characters.</small>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control"
+                formControlName="lastName"
+              />
+              <div *ngIf="lastName?.invalid && lastName?.touched" class="text-danger">
+                <small *ngIf="lastName?.errors?.['required']">Last Name is required.</small>
+                <small *ngIf="lastName?.errors?.['minlength']">Must be at least 2 characters.</small>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+              />
+              <div *ngIf="email?.invalid && email?.touched" class="text-danger">
+                <small *ngIf="email?.errors?.['required']">Email is required.</small>
+                <small *ngIf="email?.errors?.['email']">Invalid email format.</small>
+              </div>
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+                  {{ isEditMode ? 'Update' : 'Save' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+<!-- Edit and delete section - end-->

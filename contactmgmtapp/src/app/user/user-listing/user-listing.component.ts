@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUser } from 'src/app/interface/IUser';
 import { UserService } from 'src/app/services/user.service';
 
@@ -7,35 +8,48 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './user-listing.component.html',
   styleUrls: ['./user-listing.component.css']
 })
-export class UserListingComponent implements OnInit {
-  users: any[]=[];
+export class UserListingComponent implements OnInit, OnChanges {
+  users: any[] = [];
   selectedUser: any = null;
-  constructor(private _userService:UserService) { }
+  userForm!: FormGroup;
+
+  constructor(private _userService: UserService) { }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     this.getUsers();
   }
+
+
   getUsers() {
-    this._userService.getUsers().subscribe((data:any[])=>{
-      if(data!=null){
-        this.users=data;
+    this._userService.getUsers().subscribe((data: any[]) => {
+      if (data != null) {
+        this.users = data;
       }
     })
   }
-// Open the modal for adding or editing a user
-openModal(user: any = null) {
-  this.selectedUser = user;
-}
 
 
-// Save or update user data
-saveUser(user: any) {
-  if (user.id) {
-    const index = this.users.findIndex((u) => u.id === user.id);
-    if (index !== -1) this.users[index] = user; // Update existing user
-  } else {
-    user.id = this.users.length + 1;
-    this.users.push(user); // Add new user
+  // Open the modal for editing a user
+  openModal(user: any = null) {
+    this.selectedUser = user;
+
   }
+
+  newUserAddedAlert(event: any) {
+    this.getUsers();
+  }
+
+  onDeleteUser(user: any) {
+    this._userService.deleteUser(user.id).subscribe((data: any) => {
+      if (data != null) {
+        this.getUsers();
+      }
+    });
 }
+
 }
